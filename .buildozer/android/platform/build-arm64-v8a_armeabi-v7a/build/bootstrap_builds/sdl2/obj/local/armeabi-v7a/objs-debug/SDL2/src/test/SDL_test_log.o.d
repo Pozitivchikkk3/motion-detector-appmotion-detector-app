@@ -1,0 +1,194 @@
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/obj/local/armeabi-v7a/objs-debug/SDL2/src/test/SDL_test_log.o: \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/src/test/SDL_test_log.c \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_config.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_platform.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/begin_code.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/close_code.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_config_android.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_main.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_stdinc.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_assert.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_atomic.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_audio.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_error.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_endian.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_mutex.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_thread.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_rwops.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_clipboard.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_cpuinfo.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_events.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_video.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_pixels.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_rect.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_surface.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_blendmode.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_keyboard.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_keycode.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_scancode.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_mouse.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_joystick.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_guid.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_gamecontroller.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_sensor.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_quit.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_gesture.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_touch.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_filesystem.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_haptic.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_hidapi.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_hints.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_loadso.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_log.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_messagebox.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_metal.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_power.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_render.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_shape.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_system.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_timer.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_version.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_locale.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_misc.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_assert.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_common.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_compare.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_images.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_crc32.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_font.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_fuzzer.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_harness.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_log.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_md5.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_memory.h \
+  /home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_random.h
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_config.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_platform.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/begin_code.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/close_code.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_config_android.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_main.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_stdinc.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_assert.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_atomic.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_audio.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_error.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_endian.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_mutex.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_thread.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_rwops.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_clipboard.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_cpuinfo.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_events.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_video.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_pixels.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_rect.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_surface.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_blendmode.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_keyboard.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_keycode.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_scancode.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_mouse.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_joystick.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_guid.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_gamecontroller.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_sensor.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_quit.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_gesture.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_touch.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_filesystem.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_haptic.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_hidapi.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_hints.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_loadso.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_log.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_messagebox.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_metal.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_power.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_render.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_shape.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_system.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_timer.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_version.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_locale.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_misc.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_assert.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_common.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_compare.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_images.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_crc32.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_font.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_fuzzer.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_harness.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_log.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_md5.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_memory.h:
+
+/home/kolya/myapp/.buildozer/android/platform/build-arm64-v8a_armeabi-v7a/build/bootstrap_builds/sdl2/jni/SDL/include/SDL_test_random.h:
