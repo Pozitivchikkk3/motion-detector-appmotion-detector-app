@@ -69,40 +69,43 @@ jobs:
           echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
         fi
 
-    - name: Setup Android SDK and accept licenses
+    - name: Pre-create Android SDK directory structure
       run: |
         mkdir -p ~/.android
         touch ~/.android/repositories.cfg
-        
-        # Создаем правильную структуру папок для Android SDK
-        mkdir -p ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest
-        
-        # Скачиваем и распаковываем Android Command Line Tools в правильную директорию
-        wget -q https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O /tmp/commandlinetools.zip
-        unzip -q /tmp/commandlinetools.zip -d /tmp/
-        mv /tmp/cmdline-tools/* ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/
-        
-        # Создаем символическую ссылку для совместимости со старыми путями
-        mkdir -p ~/.buildozer/android/platform/android-sdk/tools
-        ln -sf ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin ~/.buildozer/android/platform/android-sdk/tools/bin
-        
-        # Добавляем sdkmanager в PATH
-        export PATH="$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin:$PATH"
-        
-        # Принимаем лицензии
-        yes | sdkmanager --licenses --sdk_root=$HOME/.buildozer/android/platform/android-sdk
-        
-        # Устанавливаем необходимые компоненты
-        sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30" --sdk_root=$HOME/.buildozer/android/platform/android-sdk
+        mkdir -p ~/.buildozer/android/platform/android-sdk
 
-    - name: Build with Buildozer
+    - name: Build with Buildozer (allow it to handle SDK installation)
       run: |
-        # Устанавливаем переменную окружения для SDK root
+        # Разрешаем Buildozer самому управлять установкой Android SDK
+        # Предварительно принимаем лицензии с помощью expect
+        sudo apt install -y expect
         export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
-        buildozer -v android debug
+        
+        # Используем expect для автоматического принятия лицензий
+        expect << EOF
+set timeout -1
+spawn buildozer -v android debug
+expect {
+    "Accept? (y/N)" {
+        send "y\r"
+        exp_continue
+    }
+    "License android-sdk-license:" {
+        send "y\r"
+        exp_continue
+    }
+    "Review licenses that have not been accepted" {
+        send "y\r"
+        exp_continue
+    }
+    eof
+}
+EOF
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-apk
         path: bin/*.apk
+      if: success() || failure()  # Загружаем артефакт даже если сборка не удалась
