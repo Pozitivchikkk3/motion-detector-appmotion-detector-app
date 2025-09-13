@@ -42,50 +42,51 @@ jobs:
       run: |
         pip install buildozer cython
 
-    - name: Check and update buildozer.spec
+    - name: Create buildozer.spec with specific settings
       run: |
         if [ -f buildozer.spec ]; then
-          echo "buildozer.spec already exists, updating requirements..."
-          if ! grep -q "requirements = python3,kivy,opencv,numpy,android" buildozer.spec; then
-            echo "Updating requirements in buildozer.spec"
-            sed -i 's/^requirements = .*/requirements = python3,kivy,opencv,numpy,android/' buildozer.spec
+          echo "Updating existing buildozer.spec"
+          # Обновляем требования
+          sed -i 's/^requirements = .*/requirements = python3,kivy,opencv,numpy,android/' buildozer.spec
+          # Добавляем настройки Android
+          if ! grep -q "android.build_tools_version" buildozer.spec; then
+            echo "android.build_tools_version = 30.0.3" >> buildozer.spec
           fi
-          if ! grep -q "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" buildozer.spec; then
-            echo "Updating permissions in buildozer.spec"
+          if ! grep -q "android.api" buildozer.spec; then
+            echo "android.api = 30" >> buildozer.spec
+          fi
+          if ! grep -q "android.minapi" buildozer.spec; then
+            echo "android.minapi = 21" >> buildozer.spec
+          fi
+          if ! grep -q "android.permissions" buildozer.spec; then
             echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
           fi
         else
           echo "Creating new buildozer.spec"
           buildozer init
           echo "requirements = python3,kivy,opencv,numpy,android" >> buildozer.spec
+          echo "android.build_tools_version = 30.0.3" >> buildozer.spec
+          echo "android.api = 30" >> buildozer.spec
+          echo "android.minapi = 21" >> buildozer.spec
           echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
         fi
 
-    - name: Initialize Android SDK and accept licenses
+    - name: Setup Android SDK and accept licenses
       run: |
-        # Создаем директорию для лицензий
         mkdir -p ~/.android
         touch ~/.android/repositories.cfg
         
-        # Запускаем Buildozer, чтобы он скачал базовые компоненты
-        buildozer android update 2>&1 | tee buildozer_init.log || true
+        # Скачиваем и распаковываем Android Command Line Tools
+        wget -q https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O /tmp/commandlinetools.zip
+        mkdir -p ~/.buildozer/android/platform/android-sdk
+        unzip -q /tmp/commandlinetools.zip -d ~/.buildozer/android/platform/android-sdk
+        mv ~/.buildozer/android/platform/android-sdk/cmdline-tools ~/.buildozer/android/platform/android-sdk/tools
         
-        # Ждем пока SDK скачается и затем принимаем лицензии
-        MAX_RETRIES=10
-        COUNTER=0
-        while [ ! -f ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager ] && [ $COUNTER -lt $MAX_RETRIES ]; do
-          echo "Waiting for SDK manager to download... (attempt $((COUNTER+1))/$MAX_RETRIES)"
-          sleep 30
-          COUNTER=$((COUNTER+1))
-        done
-
-        if [ -f ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager ]; then
-          echo "Accepting Android SDK licenses..."
-          yes | ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses
-          echo "Licenses accepted successfully."
-        else
-          echo "SDK manager not found after waiting. Continuing build..."
-        fi
+        # Принимаем лицензии
+        yes | ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses
+        
+        # Устанавливаем необходимые компоненты
+        ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
 
     - name: Build with Buildozer
       run: |
