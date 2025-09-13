@@ -38,9 +38,9 @@ jobs:
           unzip \
           openjdk-17-jdk
 
-    - name: Install Buildozer
+    - name: Install Python dependencies
       run: |
-        pip install buildozer
+        pip install buildozer cython
 
     - name: Check and update buildozer.spec
       run: |
