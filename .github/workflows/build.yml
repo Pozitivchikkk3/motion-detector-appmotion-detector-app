@@ -19,15 +19,50 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Install dependencies
+    - name: Install system dependencies
       run: |
         sudo apt update
         sudo apt install -y python3-pip git zip unzip openjdk-17-jdk
+        pip install --upgrade pip
         pip install buildozer cython
 
-    - name: Create minimal buildozer.spec
+    - name: Set up Android SDK
       run: |
-        cat > buildozer.spec << EOF
+        # Create Android SDK directory
+        mkdir -p $HOME/.buildozer/android/platform
+        cd $HOME/.buildozer/android/platform
+        
+        # Download and setup Android SDK
+        wget -q https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip
+        unzip -q commandlinetools-linux-8512546_latest.zip
+        mkdir -p android-sdk/cmdline-tools
+        mv cmdline-tools android-sdk/cmdline-tools/latest
+        
+        # Set environment variables
+        export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
+        export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+        
+        # Accept licenses and install required packages
+        yes | sdkmanager --licenses
+        sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+
+    - name: Create main.py
+      run: |
+        cat > main.py << 'EOF'
+        from kivy.app import App
+        from kivy.uix.label import Label
+
+        class MotionDetectorApp(App):
+            def build(self):
+                return Label(text='Motion Detector App\nReady to detect motion!')
+
+        if __name__ == '__main__':
+            MotionDetectorApp().run()
+        EOF
+
+    - name: Create buildozer.spec
+      run: |
+        cat > buildozer.spec << 'EOF'
         [app]
         title = Motion Detector
         package.name = motiondetector
@@ -40,20 +75,29 @@ jobs:
         log_level = 2
         
         [android]
-        android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE
+        android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
         android.api = 30
         android.minapi = 21
+        android.ndk = 25b
         android.accept_sdk_license = True
+        android.gradle_dependencies = 
         EOF
 
-    - name: Build APK
+    - name: Build APK with proper environment
       run: |
         export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
+        export ANDROID_HOME=$ANDROID_SDK_ROOT
+        export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools
+        
+        # Initialize buildozer
+        buildozer init
+        
+        # Build the APK
         buildozer android debug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-apk
+        name: motion-detector-apk
         path: bin/*.apk
       if: always()
