@@ -1,4 +1,4 @@
-name: Build Android APK (Alternative)
+name: Build Android APK (Alternative with Android Setup)
 
 on:
   push:
@@ -19,39 +19,57 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Install dependencies
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Install Python dependencies
       run: |
-        python -m pip install --upgrade pip
+        pip install --upgrade pip
         pip install buildozer cython
 
-    - name: Build APK using buildozer
+    - name: Install system dependencies
       run: |
-        # Remove existing buildozer.spec if it exists
-        rm -f buildozer.spec
-        
-        # Initialize buildozer (creates buildozer.spec)
-        buildozer init
-        
-        # Create main.py if it doesn't exist
-        if [ ! -f main.py ]; then
-          cat > main.py << 'EOF'
+        sudo apt update
+        sudo apt install -y autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+
+    - name: Create main.py
+      run: |
+        cat > main.py << 'EOF'
         from kivy.app import App
         from kivy.uix.label import Label
 
-        class MainApp(App):
+        class MotionDetectorApp(App):
             def build(self):
-                return Label(text='Hello World!')
+                return Label(text='Motion Detector App\nReady to detect motion!')
 
-        MainApp().run()
+        if __name__ == '__main__':
+            MotionDetectorApp().run()
         EOF
-        fi
-        
-        # Build APK
-        buildozer android debug
 
-    - name: Find and upload APK
+    - name: Initialize buildozer
+      run: buildozer init
+
+    - name: Update buildozer.spec
+      run: |
+        sed -i 's/title = My Application/title = Motion Detector/' buildozer.spec
+        sed -i 's/package.name = myapp/package.name = motiondetector/' buildozer.spec
+        sed -i 's/package.domain = org.test/package.domain = org.example/' buildozer.spec
+
+    - name: Accept SDK licenses
+      run: yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
+
+    - name: Build APK
+      run: buildozer android debug
+
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: android-apk
+        name: motion-detector-apk
         path: bin/*.apk
-      if: always()
+
