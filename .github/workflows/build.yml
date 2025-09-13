@@ -11,79 +11,75 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-    - name: Install system dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y \
-          python3-pip \
-          autoconf \
-          libtool \
-          pkg-config \
-          zlib1g-dev \
-          libncurses5-dev \
-          libncursesw5-dev \
-          cmake \
-          libffi-dev \
-          libssl-dev \
-          git \
-          zip \
-          unzip \
-          openjdk-17-jdk
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            python3-pip \
+            autoconf \
+            libtool \
+            pkg-config \
+            zlib1g-dev \
+            libncurses5-dev \
+            libncursesw5-dev \
+            cmake \
+            libffi-dev \
+            libssl-dev \
+            git \
+            zip \
+            unzip \
+            openjdk-17-jdk
 
-    - name: Install Python dependencies
-      run: |
-        pip install buildozer cython
+      - name: Install Python dependencies
+        run: |
+          pip install buildozer cython
 
-    - name: Create buildozer.spec with specific settings
-      run: |
-        if [ -f buildozer.spec ]; then
-          echo "Updating existing buildozer.spec"
-          sed -i 's/^requirements = .*/requirements = python3,kivy,opencv,numpy,android/' buildozer.spec
-          if ! grep -q "android.build_tools_version" buildozer.spec; then
+      - name: Create buildozer.spec with specific settings
+        run: |
+          if [ -f buildozer.spec ]; then
+            echo "Updating existing buildozer.spec"
+            sed -i 's/^requirements = .*/requirements = python3,kivy,opencv,numpy,android/' buildozer.spec
+            if ! grep -q "android.build_tools_version" buildozer.spec; then
+              echo "android.build_tools_version = 30.0.3" >> buildozer.spec
+            fi
+            if ! grep -q "android.api" buildozer.spec; then
+              echo "android.api = 30" >> buildozer.spec
+            fi
+            if ! grep -q "android.minapi" buildozer.spec; then
+              echo "android.minapi = 21" >> buildozer.spec
+            fi
+            if ! grep -q "android.permissions" buildozer.spec; then
+              echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
+            fi
+          else
+            echo "Creating new buildozer.spec"
+            buildozer init
+            echo "requirements = python3,kivy,opencv,numpy,android" >> buildozer.spec
             echo "android.build_tools_version = 30.0.3" >> buildozer.spec
-          fi
-          if ! grep -q "android.api" buildozer.spec; then
             echo "android.api = 30" >> buildozer.spec
-          fi
-          if ! grep -q "android.minapi" buildozer.spec; then
             echo "android.minapi = 21" >> buildozer.spec
-          fi
-          if ! grep -q "android.permissions" buildozer.spec; then
             echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
           fi
-        else
-          echo "Creating new buildozer.spec"
-          buildozer init
-          echo "requirements = python3,kivy,opencv,numpy,android" >> buildozer.spec
-          echo "android.build_tools_version = 30.0.3" >> buildozer.spec
-          echo "android.api = 30" >> buildozer.spec
-          echo "android.minapi = 21" >> buildozer.spec
-          echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
-        fi
 
-    - name: Pre-create Android SDK directory structure
-      run: |
-        mkdir -p ~/.android
-        touch ~/.android/repositories.cfg
-        mkdir -p ~/.buildozer/android/platform/android-sdk
+      - name: Pre-create Android SDK directory structure
+        run: |
+          mkdir -p ~/.android
+          touch ~/.android/repositories.cfg
+          mkdir -p ~/.buildozer/android/platform/android-sdk
 
-    - name: Build with Buildozer (allow it to handle SDK installation)
-      run: |
-        # Разрешаем Buildozer самому управлять установкой Android SDK
-        # Предварительно принимаем лицензии с помощью expect
-        sudo apt install -y expect
-        export ANDROID_SDK_ROOT="$HOME/.buildozer/android/platform/android-sdk"
-
-        # Используем expect для автоматического принятия лицензий
-        expect << 'EXPECT_EOF'
+      - name: Build with Buildozer (allow it to handle SDK installation)
+        run: |
+          sudo apt install -y expect
+          export ANDROID_SDK_ROOT="$HOME/.buildozer/android/platform/android-sdk"
+          expect <<'EXPECT_EOF'
 set timeout -1
 spawn buildozer -v android debug
 expect {
@@ -103,10 +99,10 @@ expect {
 }
 EXPECT_EOF
 
-    - name: Upload APK artifact
-      if: ${{ success() || failure() }}
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-apk
-        path: bin/*.apk
+      - name: Upload APK artifact
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-apk
+          path: bin/*.apk
 
