@@ -64,6 +64,16 @@ jobs:
           echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
         fi
 
+    - name: Accept Android licenses
+      run: |
+        mkdir -p ~/.android
+        touch ~/.android/repositories.cfg
+        yes | /home/runner/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses
+
+    - name: Install Android SDK components
+      run: |
+        /home/runner/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
+
     - name: Build with Buildozer
       run: |
         buildozer -v android debug
