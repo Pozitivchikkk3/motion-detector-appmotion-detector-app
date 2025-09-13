@@ -1,4 +1,4 @@
-name: Build Android APK (Simple)
+name: Build Android APK (Alternative)
 
 on:
   push:
@@ -12,101 +12,46 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/check
+      uses: actions/checkout@v4
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
-    - name: Install system dependencies
+    - name: Install dependencies
       run: |
-        sudo apt update
-        sudo apt install -y python3-pip git zip unzip openjdk-17-jdk
-        pip install --upgrade pip
+        python -m pip install --upgrade pip
         pip install buildozer cython
 
-    - name: Set up Android SDK
+    - name: Build APK using buildozer
       run: |
-        # Create Android SDK directory
-        mkdir -p $HOME/.buildozer/android/platform
-        cd $HOME/.buildozer/android/platform
+        # Remove existing buildozer.spec if it exists
+        rm -f buildozer.spec
         
-        # Download and setup Android SDK
-        wget -q https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip
-        unzip -q commandlinetools-linux-8512546_latest.zip
-        mkdir -p android-sdk/cmdline-tools
-        mv cmdline-tools android-sdk/cmdline-tools/latest
+        # Initialize buildozer (creates buildozer.spec)
+        buildozer init
         
-        # Set environment variables
-        export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
-        export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
-        
-        # Accept licenses and install required packages
-        yes | sdkmanager --licenses
-        sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
-
-    - name: Create main.py if it doesn't exist
-      run: |
+        # Create main.py if it doesn't exist
         if [ ! -f main.py ]; then
           cat > main.py << 'EOF'
         from kivy.app import App
         from kivy.uix.label import Label
 
-        class MotionDetectorApp(App):
+        class MainApp(App):
             def build(self):
-                return Label(text='Motion Detector App\nReady to detect motion!')
+                return Label(text='Hello World!')
 
-        if __name__ == '__main__':
-            MotionDetectorApp().run()
+        MainApp().run()
         EOF
         fi
-
-    - name: Create or update buildozer.spec
-      run: |
-        cat > buildozer.spec << 'EOF'
-        [app]
-        title = Motion Detector
-        package.name = motiondetector
-        package.domain = org.example
-        source.dir = .
-        version = 0.1
-        requirements = python3,kivy
         
-        [buildozer]
-        log_level = 2
-        
-        [android]
-        android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE
-        android.api = 30
-        android.minapi = 21
-        android.ndk = 25b
-        android.accept_sdk_license = True
-        android.gradle_dependencies = 
-        EOF
-
-    - name: Build APK with proper environment
-      run: |
-        export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
-        export ANDROID_HOME=$ANDROID_SDK_ROOT
-        export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools
-        
-        # Don't run buildozer init since we already have buildozer.spec
-        # Build the APK directly
+        # Build APK
         buildozer android debug
 
-    - name: List bin directory contents
-      run: |
-        echo "Contents of bin directory:"
-        ls -la bin/ || echo "bin directory not found"
-        echo "Searching for APK files:"
-        find . -name "*.apk" -type f || echo "No APK files found"
-
-    - name: Upload APK
+    - name: Find and upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: motion-detector-apk
-        path: |
-          bin/*.apk
-          **/*.apk
+        name: android-apk
+        path: bin/*.apk
       if: always()
-
