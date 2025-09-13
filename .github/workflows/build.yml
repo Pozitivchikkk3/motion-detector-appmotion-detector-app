@@ -46,9 +46,7 @@ jobs:
       run: |
         if [ -f buildozer.spec ]; then
           echo "Updating existing buildozer.spec"
-          # Обновляем требования
           sed -i 's/^requirements = .*/requirements = python3,kivy,opencv,numpy,android/' buildozer.spec
-          # Добавляем настройки Android
           if ! grep -q "android.build_tools_version" buildozer.spec; then
             echo "android.build_tools_version = 30.0.3" >> buildozer.spec
           fi
@@ -83,6 +81,10 @@ jobs:
         wget -q https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O /tmp/commandlinetools.zip
         unzip -q /tmp/commandlinetools.zip -d /tmp/
         mv /tmp/cmdline-tools/* ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/
+        
+        # Создаем символическую ссылку для совместимости со старыми путями
+        mkdir -p ~/.buildozer/android/platform/android-sdk/tools
+        ln -sf ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin ~/.buildozer/android/platform/android-sdk/tools/bin
         
         # Добавляем sdkmanager в PATH
         export PATH="$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin:$PATH"
