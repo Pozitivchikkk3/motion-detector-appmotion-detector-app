@@ -1,62 +1,8 @@
-name: Build Android APK
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Install system dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y \
-          python3-pip \
-          autoconf \
-          libtool \
-          pkg-config \
-          zlib1g-dev \
-          libncurses5-dev \
-          libncursesw5-dev \
-          cmake \
-          libffi-dev \
-          libssl-dev \
-          git \
-          zip \
-          unzip \
-          openjdk-17-jdk
-
-    - name: Install Buildozer
-      run: |
-        pip install buildozer
-
-    - name: Initialize Buildozer
-      run: |
-        buildozer init
-
-    - name: Configure Buildozer
-      run: |
-        echo "requirements = python3, kivy, opencv, numpy, android" >> buildozer.spec
-        echo "android.permissions = CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE" >> buildozer.spec
-
-    - name: Build with Buildozer
-      run: |
-        buildozer -v android debug
+л        buildozer -v android debug
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v3
       with:
         name: app-apk
         path: bin/*.apk
+nano .github/workflows/build.ymlnano .github/workflows/build.ymlnano .github/workflows/build.yml
