@@ -80,10 +80,10 @@ jobs:
         # Разрешаем Buildozer самому управлять установкой Android SDK
         # Предварительно принимаем лицензии с помощью expect
         sudo apt install -y expect
-        export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
-        
+        export ANDROID_SDK_ROOT="$HOME/.buildozer/android/platform/android-sdk"
+
         # Используем expect для автоматического принятия лицензий
-        expect << EOF
+        expect << 'EXPECT_EOF'
 set timeout -1
 spawn buildozer -v android debug
 expect {
@@ -101,11 +101,12 @@ expect {
     }
     eof
 }
-EOF
+EXPECT_EOF
 
     - name: Upload APK artifact
+      if: ${{ success() || failure() }}
       uses: actions/upload-artifact@v4
       with:
         name: app-apk
         path: bin/*.apk
-      if: success() || failure()  # Загружаем артефакт даже если сборка не удалась
+
