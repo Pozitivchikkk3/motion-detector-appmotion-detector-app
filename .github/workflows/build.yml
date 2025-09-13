@@ -76,20 +76,27 @@ jobs:
         mkdir -p ~/.android
         touch ~/.android/repositories.cfg
         
-        # Скачиваем и распаковываем Android Command Line Tools
+        # Создаем правильную структуру папок для Android SDK
+        mkdir -p ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest
+        
+        # Скачиваем и распаковываем Android Command Line Tools в правильную директорию
         wget -q https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O /tmp/commandlinetools.zip
-        mkdir -p ~/.buildozer/android/platform/android-sdk
-        unzip -q /tmp/commandlinetools.zip -d ~/.buildozer/android/platform/android-sdk
-        mv ~/.buildozer/android/platform/android-sdk/cmdline-tools ~/.buildozer/android/platform/android-sdk/tools
+        unzip -q /tmp/commandlinetools.zip -d /tmp/
+        mv /tmp/cmdline-tools/* ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/
+        
+        # Добавляем sdkmanager в PATH
+        export PATH="$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin:$PATH"
         
         # Принимаем лицензии
-        yes | ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses
+        yes | sdkmanager --licenses --sdk_root=$HOME/.buildozer/android/platform/android-sdk
         
         # Устанавливаем необходимые компоненты
-        ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
+        sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30" --sdk_root=$HOME/.buildozer/android/platform/android-sdk
 
     - name: Build with Buildozer
       run: |
+        # Устанавливаем переменную окружения для SDK root
+        export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
         buildozer -v android debug
 
     - name: Upload APK artifact
