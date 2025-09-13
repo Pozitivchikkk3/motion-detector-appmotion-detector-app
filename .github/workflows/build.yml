@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK (Simple)
 
 on:
   push:
@@ -19,118 +19,41 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Install system dependencies
+    - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y \
-          python3-pip \
-          autoconf \
-          libtool \
-          pkg-config \
-          zlib1g-dev \
-          libncurses5-dev \
-          libncursesw5-dev \
-          cmake \
-          libffi-dev \
-          libssl-dev \
-          git \
-          zip \
-          unzip \
-          openjdk-17-jdk \
-          expect
-
-    - name: Install Python dependencies
-      run: |
+        sudo apt install -y python3-pip git zip unzip openjdk-17-jdk
         pip install buildozer cython
 
-    - name: Create buildozer.spec with specific settings
+    - name: Create minimal buildozer.spec
       run: |
-        if [ -f buildozer.spec ]; then
-          echo "Updating existing buildozer.spec"
-          sed -i 's/^requirements = .*/requirements = python3,kivy,opencv,numpy,android/' buildozer.spec
-          if ! grep -q "android.build_tools_version" buildozer.spec; then
-            echo "android.build_tools_version = 30.0.3" >> buildozer.spec
-          fi
-          if ! grep -q "android.api" buildozer.spec; then
-            echo "android.api = 30" >> buildozer.spec
-          fi
-          if ! grep -q "android.minapi" buildozer.spec; then
-            echo "android.minapi = 21" >> buildozer.spec
-          fi
-          if ! grep -q "android.permissions" buildozer.spec; then
-            echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
-          fi
-        else
-          echo "Creating new buildozer.spec"
-          buildozer init
-          echo "requirements = python3,kivy,opencv,numpy,android" >> buildozer.spec
-          echo "android.build_tools_version = 30.0.3" >> buildozer.spec
-          echo "android.api = 30" >> buildozer.spec
-          echo "android.minapi = 21" >> buildozer.spec
-          echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
-        fi
+        cat > buildozer.spec << EOF
+        [app]
+        title = Motion Detector
+        package.name = motiondetector
+        package.domain = org.example
+        source.dir = .
+        version = 0.1
+        requirements = python3,kivy
+        
+        [buildozer]
+        log_level = 2
+        
+        [android]
+        android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE
+        android.api = 30
+        android.minapi = 21
+        android.accept_sdk_license = True
+        EOF
 
-    - name: Pre-create Android SDK directory structure
-      run: |
-        mkdir -p ~/.android
-        touch ~/.android/repositories.cfg
-        mkdir -p ~/.buildozer/android/platform/android-sdk
-
-    - name: Accept Android SDK licenses
+    - name: Build APK
       run: |
         export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
-        echo "y" | buildozer android debug || true
+        buildozer android debug
 
-    - name: Build with Buildozer using expect
-      run: |
-        cat > build_script.exp << 'EOF'
-        #!/usr/bin/expect -f
-        set timeout -1
-        spawn buildozer -v android debug
-        expect {
-            -re "Accept\\? \\(y/N\\)" {
-                send "y\r"
-                exp_continue
-            }
-            -re "License.*:" {
-                send "y\r"
-                exp_continue
-            }
-            -re "Review licenses.*" {
-                send "y\r"
-                exp_continue
-            }
-            -re "Do you accept the license.*" {
-                send "y\r"
-                exp_continue
-            }
-            eof {
-                catch wait result
-                exit [lindex $result 3]
-            }
-        }
-        EOF
-        chmod +x build_script.exp
-        ./build_script.exp
-
-    - name: Alternative build method (if expect fails)
-      if: failure()
-      run: |
-        echo "Trying alternative build method..."
-        yes | buildozer android debug
-
-    - name: Upload APK artifact
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-apk
         path: bin/*.apk
       if: always()
-
-    - name: Upload build logs
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-logs
-        path: |
-          .buildozer/
-          buildozer.spec
-      if: failure()
