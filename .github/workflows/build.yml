@@ -75,11 +75,17 @@ jobs:
           touch ~/.android/repositories.cfg
           mkdir -p ~/.buildozer/android/platform/android-sdk
 
-      - name: Build with Buildozer (allow it to handle SDK installation)
+      - name: Build with Buildozer (accept licenses via expect script)
         run: |
+          set -euo pipefail
+          sudo apt update
           sudo apt install -y expect
           export ANDROID_SDK_ROOT="$HOME/.buildozer/android/platform/android-sdk"
-          expect <<'EXPECT_EOF'
+          mkdir -p "$ANDROID_SDK_ROOT"
+
+          # create a small expect script (avoid YAML/heredoc indentation issues)
+          cat > ./accept_buildozer_licenses.expect <<'EXP'
+#!/usr/bin/expect -f
 set timeout -1
 spawn buildozer -v android debug
 expect {
@@ -97,7 +103,9 @@ expect {
     }
     eof
 }
-EXPECT_EOF
+EXP
+          chmod +x ./accept_buildozer_licenses.expect
+          ./accept_buildozer_licenses.expect
 
       - name: Upload APK artifact
         if: ${{ always() }}
