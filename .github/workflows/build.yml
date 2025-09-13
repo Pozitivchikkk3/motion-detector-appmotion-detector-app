@@ -12,8 +12,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
-
+      uses: actions/check
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -110,3 +109,4 @@ jobs:
           bin/*.apk
           **/*.apk
       if: always()
+
