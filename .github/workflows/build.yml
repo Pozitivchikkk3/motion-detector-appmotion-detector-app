@@ -44,15 +44,12 @@ jobs:
 
     - name: Check and update buildozer.spec
       run: |
-        # Проверяем, существует ли buildozer.spec
         if [ -f buildozer.spec ]; then
           echo "buildozer.spec already exists, updating requirements..."
-          # Обновляем требования, если нужно
           if ! grep -q "requirements = python3,kivy,opencv,numpy,android" buildozer.spec; then
             echo "Updating requirements in buildozer.spec"
             sed -i 's/^requirements = .*/requirements = python3,kivy,opencv,numpy,android/' buildozer.spec
           fi
-          # Обновляем разрешения, если нужно
           if ! grep -q "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" buildozer.spec; then
             echo "Updating permissions in buildozer.spec"
             echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
@@ -64,15 +61,31 @@ jobs:
           echo "android.permissions = CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE" >> buildozer.spec
         fi
 
-    - name: Accept Android licenses
+    - name: Initialize Android SDK and accept licenses
       run: |
+        # Создаем директорию для лицензий
         mkdir -p ~/.android
         touch ~/.android/repositories.cfg
-        yes | /home/runner/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses
+        
+        # Запускаем Buildozer, чтобы он скачал базовые компоненты
+        buildozer android update 2>&1 | tee buildozer_init.log || true
+        
+        # Ждем пока SDK скачается и затем принимаем лицензии
+        MAX_RETRIES=10
+        COUNTER=0
+        while [ ! -f ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager ] && [ $COUNTER -lt $MAX_RETRIES ]; do
+          echo "Waiting for SDK manager to download... (attempt $((COUNTER+1))/$MAX_RETRIES)"
+          sleep 30
+          COUNTER=$((COUNTER+1))
+        done
 
-    - name: Install Android SDK components
-      run: |
-        /home/runner/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager "platform-tools" "build-tools;30.0.3" "platforms;android-30"
+        if [ -f ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager ]; then
+          echo "Accepting Android SDK licenses..."
+          yes | ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses
+          echo "Licenses accepted successfully."
+        else
+          echo "SDK manager not found after waiting. Continuing build..."
+        fi
 
     - name: Build with Buildozer
       run: |
